@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>ToDo</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <!-- <script src='main.js'></script> -->
+</head>
+<body>
+<div style="margin:0;text-align:center;font-family:'Inter',sans-serif;color:#092147;background-color:#eaf0f8">
+    <div style="width:624px;display:inline-block;border:1px solid #f6f9fd;background-color:#f6f9fd">
+        <div style="background:url('https://res.cloudinary.com/difkaaleb/image/upload/v1712818564/xxgnnlkw5nyv34hpp4ny.jpg') center center no-repeat;background-size:cover;height:122px;padding:0 48px;text-align:left">
+            <div style="padding-top:60px">
+                <div><img alt="vauld"
+                          src="https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                          style="width:130px; height:50px" class="CToWUd" data-bit="iit">
+                </div>
+            </div>
+        </div>
+
+        <div style="background-color:#ffffff;padding:0 48px;text-align:left">
+            <div style="font-family:Inter;margin-top:40px;font-family:Inter;font-size:16px;color:#092147;line-height:1.5;display:inline-block;width:85%">
+                <strong>Dear <span th:text="${firstName}">User</span>,</strong>
+                <br><br>
+                We are excited to inform you about your latest ToDo list!
+                <br><br>
+                <span th:text="${message}">Your custom ToDo message will appear here.</span>
+            </div>
+            <p>To view your ToDo list, simply click on the link below:</p>
+            <p><a href="URL" id="URL" target="_blank" th:href="@{URL}">View ToDo List</a><br></p>
+            <br>
+            <p>We hope this helps you stay organized and on top of your tasks. If you have any feedback or questions, please feel free to reach out to us.</p>
+            <p>Thank you for using our service. We look forward to continuing to serve you.</p>
+
+            <div style="font-family:Inter;font-size:15px;color:#092147;line-height:1.5;display:inline-block;width:85%">
+                Best regards,<br>
+                Your ToDo Team
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

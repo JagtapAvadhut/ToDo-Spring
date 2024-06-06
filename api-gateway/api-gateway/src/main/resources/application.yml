@@ -1,0 +1,31 @@
+server:
+  port: 7070
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: todo-user
+          uri: lb://todo-user
+          predicates:
+            - Path=/v1/user/**
+        - id: mail-sms-todo
+          uri: lb://mail-sms-todo
+          predicates:
+            - Path=/mail/** ,/sms/**
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka

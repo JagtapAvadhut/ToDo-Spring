@@ -1,4 +1,5 @@
 package com.mail.sms.todo.config;
+
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -8,13 +9,13 @@ import com.twilio.Twilio;
 @Configuration
 public class TwilioConfig {
 
-    @Value("${aj.account-sid}")
+    @Value("${twilio.account-sid}")
     private String accountSid;
 
-    @Value("${aj.auth-token}")
+    @Value("${twilio.auth-token}")
     private String authToken;
 
-    @Value("${aj.phone-number}")
+    @Value("${twilio.phone-number}")
     private String phoneNumber;
 
     @PostConstruct

@@ -19,3 +19,8 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+twilio:
+  account-sid: ACaaeb213f34872516d6a87ba658f087eb
+  auth-token: 9ae620abef9f0832ff15fa612830bbd2
+  phone-number: +12084878377

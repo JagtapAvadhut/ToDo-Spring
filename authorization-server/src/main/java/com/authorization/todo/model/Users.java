@@ -29,6 +29,7 @@ public class Users implements UserDetails {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    private String userPhoto;
     private Integer otpSms;
     private Integer otpMail;
     private Boolean isMobileVerified = false;
@@ -47,6 +48,14 @@ public class Users implements UserDetails {
     @Override
     public String getUsername() {
         return userEmail;
+    }
+
+    public String getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(String userPhoto) {
+        this.userPhoto = userPhoto;
     }
 
     public Long getUserID() {

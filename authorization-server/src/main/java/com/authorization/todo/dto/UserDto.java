@@ -16,4 +16,5 @@ public class UserDto {
     private String userAddress;
     private Long userPhone;
     private String role;
+    private String userPhoto;
 }

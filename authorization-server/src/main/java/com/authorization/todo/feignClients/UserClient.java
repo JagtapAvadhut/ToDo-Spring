@@ -1,7 +1,7 @@
 package com.authorization.todo.feignClients;
 
 import com.authorization.todo.exception.Response;
-import com.authorization.todo.model.User;
+//import com.authorization.todo.model.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

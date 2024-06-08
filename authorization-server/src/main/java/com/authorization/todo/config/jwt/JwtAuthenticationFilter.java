@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -47,22 +48,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 username = this.jwtHelper.getUsernameFromToken(token);
 
             } catch (IllegalArgumentException e) {
-                logger.info("Illegal Argument while fetching the username !!");
-                e.printStackTrace();
+                logger.info("Illegal Argument while fetching the username {}!!", e.getMessage());
+//                throw new RuntimeException("Illegal Argument while fetching the username");
             } catch (ExpiredJwtException e) {
-                logger.info("Given jwt token is expired !!");
-                e.printStackTrace();
+                logger.info("Given jwt token is expired {}!!", e.getMessage());
+//                throw new RuntimeException("Given jwt token is expired");
             } catch (MalformedJwtException e) {
-                logger.info("Some changed has done in token !! Invalid Token");
-                e.printStackTrace();
+                logger.info("Some changed has done in token !! Invalid Token {}", e.getMessage());
+//                throw new RuntimeException("Some changed has done in token !! Invalid Token");
             } catch (Exception e) {
-                e.printStackTrace();
-
+                logger.error("do filter internal method {}", e.getMessage());
+//                throw new RuntimeException();
             }
 
 
         } else {
             logger.info("Invalid Header Value !! ");
+//            throw new RuntimeException("");
         }
 
 
@@ -82,6 +84,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             } else {
                 logger.info("Validation fails !!");
+//                throw new RuntimeException();
             }
 
         }

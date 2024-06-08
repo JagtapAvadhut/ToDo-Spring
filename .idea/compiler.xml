@@ -8,10 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="mail_sms_todo" />
-        <module name="api-gateway" />
         <module name="Payment-Gateway" />
-        <module name="todo-user" />
         <module name="authorization-server" />
+        <module name="api-gateway" />
+        <module name="todo-user" />
+        <module name="identity-service" />
         <module name="service-registry" />
       </profile>
     </annotationProcessing>
@@ -21,6 +22,7 @@
       <module name="Payment-Gateway" options="-parameters" />
       <module name="api-gateway" options="-parameters" />
       <module name="authorization-server" options="-parameters" />
+      <module name="identity-service" options="-parameters" />
       <module name="mail_sms_todo" options="-parameters" />
       <module name="service-registry" options="-parameters" />
       <module name="todo-user" options="-parameters" />

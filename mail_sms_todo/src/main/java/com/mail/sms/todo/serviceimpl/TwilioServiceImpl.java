@@ -7,10 +7,10 @@ import com.twilio.exception.ApiException;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import jakarta.annotation.PreDestroy;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,7 +27,7 @@ public class TwilioServiceImpl implements TwilioService {
     @Override
     public Response<Object> sendSms(String to, String messageBody) {
         try {
-//            service.submit(() -> {
+            service.submit(() -> {
                 try {
                     Message message = Message.creator(
                             new PhoneNumber(to),
@@ -38,11 +38,10 @@ public class TwilioServiceImpl implements TwilioService {
                     logger.info("SMS sent successfully: {}", message.getSid());
                 } catch (ApiException e) {
                     logger.error("Twilio API Exception: {}", e.getMessage(), e);
-
                 } catch (Exception e) {
                     logger.error("Failed to send SMS asynchronously: {}", e.getMessage(), e);
                 }
-//            });
+            });
             return new Response<>(200, "SMS sending request accepted");
         } catch (Exception e) {
             logger.error("Failed to send SMS: {}", e.getMessage(), e);
@@ -50,7 +49,6 @@ public class TwilioServiceImpl implements TwilioService {
         }
     }
 
-    // Properly shutdown the ExecutorService when the application is stopped
     @PreDestroy
     public void shutdown() {
         service.shutdown();

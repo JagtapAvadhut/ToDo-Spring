@@ -20,6 +20,7 @@ public class Notes {
     private String noteTitle;
     @Lob
     private String noteMassage;
+    private String noteLogo;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @JoinColumn(name = "user")

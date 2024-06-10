@@ -39,9 +39,18 @@ public class UserController {
         return userService.getUserByEmail(email);
     }
 
-    @GetMapping("/all-user/")
+    @GetMapping("/all-users")
     public Response<Object> getAllUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return userService.getAllUsers(pageable);
+    }
+
+    @PutMapping("/user/is-subscribed")
+    public Response<Object> setSubscribeStatus(@RequestParam Long userId, @RequestParam Boolean isSubscribed) {
+        return userService.userSubscribed(userId, isSubscribed);
+    }
+    @GetMapping("/find-all-users")
+    public Response<Object>allUsers(){
+        return userService.allUsers();
     }
 }

@@ -22,5 +22,5 @@ eureka:
 
 twilio:
   account-sid: ACaaeb213f34872516d6a87ba658f087eb
-  auth-token: 8bdede3fd5b3d34f557918b97a4da309
+  auth-token: 8d8510fff5e27867d1996c42e4cd7b3b
   phone-number: +12084878377

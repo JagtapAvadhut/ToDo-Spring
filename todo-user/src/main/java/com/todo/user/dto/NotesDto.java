@@ -8,4 +8,5 @@ public class NotesDto {
     private String noteTitle;
     private String noteMassage;
     private Long userId;
+    private String noteLogo;
 }

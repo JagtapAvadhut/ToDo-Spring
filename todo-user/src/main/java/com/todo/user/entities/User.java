@@ -23,6 +23,9 @@ public class User {
     private String userPassword;
     private String userEmail;
     private String userAddress;
+    private Boolean isSubscribed;
+    private LocalDateTime isSubscribedCreatedAt;
+    private LocalDateTime isSubscribedEndDate;
     private Boolean isActivated;
     private Long userPhone;
     @Enumerated(EnumType.STRING)

@@ -35,7 +35,9 @@ public class NotesController {
 
     @GetMapping
     public Response<Object> getAllNotes(@RequestParam(defaultValue = "0") int page,
-                                        @RequestParam(defaultValue = "10") int size) {
-        return notesService.getAllNotes(page,size);
+                                        @RequestParam(defaultValue = "10") int size, @RequestParam Long userId) {
+        return notesService.getAllNotes(userId, page, size);
     }
+
+
 }

@@ -19,3 +19,8 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+cloudinary:
+  cloud-name: dakj3o4fz
+  api-key: 469143921338842
+  api-secret: duRRukOLMu8g7xzeTrTxM7X-9kM

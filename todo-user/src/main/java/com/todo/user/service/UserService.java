@@ -6,9 +6,18 @@ import org.springframework.data.domain.Pageable;
 
 public interface UserService {
     Response<Object> createUser(UserDto userDto);
+
     Response<Object> updateUser(Long userId, UserDto userDto);
+
     Response<Object> deleteUser(Long userId);
+
     Response<Object> getUserById(Long userId);
+
     Response<Object> getUserByEmail(String email);
+
     Response<Object> getAllUsers(Pageable pageable);
+
+    Response<Object> userSubscribed(Long userId, Boolean isSubscribed);
+
+    Response<Object> allUsers();
 }

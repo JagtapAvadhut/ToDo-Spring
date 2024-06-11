@@ -67,13 +67,15 @@ public class UserServiceImpl {
             String userPhotoBase64 = users.getUserPhoto();
             users.setUserPhoto("null");
             Users users1 = usersRepo.save(users);
-            new Thread(() -> {
-                TreeMap<FileType, String> map = new TreeMap<>();
-                map.put(FileType.IMAGE, userPhotoBase64);
-                Map<FileType, String> image = uploadVideoAudioImage(map);
-                users1.setUserPhoto(image.get(FileType.IMAGE));
-                usersRepo.save(users);
-            }).start();
+            if (userPhotoBase64 != null && !userPhotoBase64.equalsIgnoreCase("String")) {
+                new Thread(() -> {
+                    TreeMap<FileType, String> map = new TreeMap<>();
+                    map.put(FileType.IMAGE, userPhotoBase64);
+                    Map<FileType, String> image = uploadVideoAudioImage(map);
+                    users1.setUserPhoto(image.get(FileType.IMAGE));
+                    usersRepo.save(users);
+                }).start();
+            }
 
 
             new Thread(() -> {

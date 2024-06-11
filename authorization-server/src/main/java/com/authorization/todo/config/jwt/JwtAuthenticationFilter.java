@@ -44,9 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             //looking good
             token = requestHeader.substring(7);
             try {
-
                 username = this.jwtHelper.getUsernameFromToken(token);
-
             } catch (IllegalArgumentException e) {
                 logger.info("Illegal Argument while fetching the username {}!!", e.getMessage());
 //                throw new RuntimeException("Illegal Argument while fetching the username");
@@ -60,8 +58,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 logger.error("do filter internal method {}", e.getMessage());
 //                throw new RuntimeException();
             }
-
-
         } else {
             logger.info("Invalid Header Value !! ");
 //            throw new RuntimeException("");

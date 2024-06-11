@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -172,6 +173,9 @@ public class UserServiceImpl implements UserService {
     public Response<Object> allUsers() {
         try {
             List<User> users = userRepo.findAll();
+            if (users.isEmpty()) {
+                return new Response<>(204, "No data found", null);
+            }
             return new Response<>(200, "all users data", users);
         } catch (Exception e) {
             return new Response<>(500, "Internal Server Error");

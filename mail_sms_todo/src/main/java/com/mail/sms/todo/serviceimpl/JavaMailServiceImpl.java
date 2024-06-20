@@ -17,6 +17,7 @@ import org.thymeleaf.TemplateEngine;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 @Service
 public class JavaMailServiceImpl implements JavaMailService {
@@ -32,7 +33,8 @@ public class JavaMailServiceImpl implements JavaMailService {
     @Override
     public Response<Object> sendEmail(MailDto mailDto, String firstName) {
         try {
-//            service.submit(() -> {
+//            Future<?> submit = service.submit(() -> {
+            service.execute(() -> {
                 try {
                     MimeMessage message = javaMailSender.createMimeMessage();
                     MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -54,11 +56,16 @@ public class JavaMailServiceImpl implements JavaMailService {
                 } catch (MessagingException e) {
                     LOGGER.error("Failed to prepare or send email: {}", e.getMessage());
                 }
-//            });
+            });
+
             return new Response<>(200, "Email sending process started successfully");
         } catch (Exception e) {
             LOGGER.error("Failed to submit email sending task: {}", e.getMessage());
             return new Response<>(500, "Failed to send email: " + e.getMessage());
+        } finally {
+            if (!service.isShutdown()) {
+                service.shutdown();
+            }
         }
     }
 

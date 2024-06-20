@@ -18,6 +18,7 @@ import com.authorization.todo.model.Users;
 import com.authorization.todo.serviceImpl.UserServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.core.SecurityContext;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -104,13 +106,9 @@ public class UserController {
 
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request) {
-        // Perform logout logic if needed
+    public Response<Object> logout(@RequestParam Long userId, HttpServletRequest request) {
 
-        // Invalidate the current session
-        request.getSession().invalidate();
-
-        return new ResponseEntity<>("Logout successful", HttpStatus.OK);
+        return UsersService.logout(userId,request);
     }
 
     private void doAuthenticate(String email, String password) {

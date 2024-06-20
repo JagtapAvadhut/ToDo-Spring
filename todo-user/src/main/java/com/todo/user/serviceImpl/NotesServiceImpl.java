@@ -25,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -57,6 +58,7 @@ public class NotesServiceImpl implements NotesService {
         final ExecutorService service = Executors.newFixedThreadPool(5);
         try {
             Notes note = modelMapper.map(notesDto, Notes.class);
+
             Optional<User> user = userRepo.findById(notesDto.getUserId());
             if (user.isEmpty()) {
                 return new Response<>(404, "user not found");
@@ -125,6 +127,7 @@ public class NotesServiceImpl implements NotesService {
             return new Response<>(201, "Note created successfully", note);
         } catch (Exception e) {
             LOGGER.error("Error creating note: {}", e.getMessage());
+
             return new Response<>(500, "Internal Server Error: ");
         } finally {
             service.shutdown();

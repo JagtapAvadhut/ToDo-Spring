@@ -2,6 +2,7 @@ package com.authorization.todo.config.jwt;
 
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -71,5 +72,18 @@ public class JwtHelper {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
+    // Forcefully expire token and return boolean
+    public Boolean expireToken(String token) {
+        try {
+            Claims claims = getAllClaimsFromToken(token);
+            claims.setExpiration(new Date(System.currentTimeMillis() - 1000)); // Set expiration date to past
+            String expiredToken = Jwts.builder().setClaims(claims)
+                    .signWith(SignatureAlgorithm.HS512, secret)
+                    .compact();
+            return isTokenExpired(expiredToken);
+        } catch (ExpiredJwtException e) {
+            return true; // If the token is already expired, consider it expired
+        }
+    }
 
 }

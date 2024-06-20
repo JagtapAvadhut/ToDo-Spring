@@ -1,0 +1,11 @@
+server:
+  port: 7075
+spring:
+  application:
+    name: configuration-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/JagtapAvadhut/configuration-server-spring-boot.git
+

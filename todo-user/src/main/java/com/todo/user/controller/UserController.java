@@ -3,6 +3,7 @@ package com.todo.user.controller;
 import com.todo.user.dto.UserDto;
 import com.todo.user.exception.Response;
 import com.todo.user.service.UserService;
+import com.todo.user.service.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private Weather weather;
 
     @PostMapping
     public Response<Object> createUser(@RequestBody UserDto userDto) {
@@ -49,8 +52,14 @@ public class UserController {
     public Response<Object> setSubscribeStatus(@RequestParam Long userId, @RequestParam Boolean isSubscribed) {
         return userService.userSubscribed(userId, isSubscribed);
     }
+
     @GetMapping("/find-all-users")
-    public Response<Object>allUsers(){
+    public Response<Object> allUsers() {
         return userService.allUsers();
+    }
+
+    @GetMapping("/weather-user-city")
+    public Response<Object> getWeather(@RequestParam String city) {
+        return weather.getCurrentWeather(city);
     }
 }

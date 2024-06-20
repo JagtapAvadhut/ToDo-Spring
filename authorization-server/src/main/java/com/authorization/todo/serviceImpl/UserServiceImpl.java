@@ -12,6 +12,7 @@ import com.authorization.todo.feignClients.UserClient;
 import com.authorization.todo.model.Users;
 import com.authorization.todo.repository.UsersRepo;
 import com.authorization.todo.util.CloudinaryUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,9 +49,12 @@ public class UserServiceImpl {
     private final Random random = new Random();
     @Autowired
     private CloudinaryUtil cloudinaryUtil;
-
+    @Autowired
+    private JwtHelper jwtHelper;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    UserDetailsService userDetailsService;
 
     public ResponseEntity<Object> addUser(UserDto userDto) {
 //    public Users addUser(Users users) {
@@ -102,6 +108,26 @@ public class UserServiceImpl {
         logger.info("loginByMail {}:", user.toString());
         return user;
     }
+
+    public Response<Object> logout(Long userId, HttpServletRequest request) {
+        Optional<Users> users = usersRepo.findById(userId);
+        String header = request.getHeader("Authorization");
+        if (header != null && header.startsWith("Bearer ")) {
+//            String token = header.substring(7);
+//            Boolean expired = jwtHelper.expireToken(token);
+//            logger.info("Logout token status: {}", expired);
+            UserDetails UsersDetails = userDetailsService.loadUserByUsername(users.get().getUserEmail());
+            String token = jwtHelper.generateToken(UsersDetails);
+        }
+
+        // Invalidate the current session
+        request.getSession().invalidate();
+//        SecurityContextHolder.clearContext();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        return new Response<>(200, "Logout success");
+    }
+
 
     // Generate and send OTP for mobile verification
     public Response<Object> sendOtpForMobileVerification(String userEmail) {

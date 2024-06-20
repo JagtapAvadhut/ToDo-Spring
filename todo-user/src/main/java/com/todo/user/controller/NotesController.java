@@ -3,13 +3,15 @@ package com.todo.user.controller;
 import com.todo.user.dto.NotesDto;
 import com.todo.user.exception.Response;
 import com.todo.user.service.NotesService;
+import com.todo.user.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/notes")
 public class NotesController {
-
+    @Autowired
+    private RedisService redisService;
     @Autowired
     private NotesService notesService;
 
@@ -39,5 +41,15 @@ public class NotesController {
         return notesService.getAllNotes(userId, page, size);
     }
 
+
+    @PostMapping("/save")
+    public void save(@RequestParam String key, @RequestBody Object value) {
+        redisService.save(key, value);
+    }
+
+    @GetMapping("/find")
+    public Object find(@RequestParam String key) {
+        return redisService.find(key);
+    }
 
 }
